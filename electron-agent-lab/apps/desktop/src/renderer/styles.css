@@ -1,0 +1,157 @@
+/* 建立整页的默认字体、文字颜色和暖白背景，所有字体均来自本机。 */ :root { font-family: "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif; color: #23382f; background: #fafbf8; font-synthesis: none; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+/* 让宽高包含内边距和边框，降低多列布局计算的复杂度。 */ * { box-sizing: border-box; }
+/* 移除文档默认外边距，并让 React 根节点占满窗口。 */ html, body, #root { width: 100%; height: 100%; margin: 0; }
+/* 页面内部区域自行滚动，避免整个窗口出现双层纵向滚动条。 */ body { overflow: hidden; }
+/* 表单控件沿用页面字体，避免中文与默认系统控件风格不一致。 */ button, textarea { font: inherit; }
+/* 所有可点击按钮显示手型光标。 */ button { cursor: pointer; }
+/* 禁用按钮明确降低对比度，并移除可点击的光标提示。 */ button:disabled { cursor: not-allowed; opacity: .48; }
+/* 清晰显示键盘焦点，确保鼠标之外的操作方式也能辨认当前位置。 */ button:focus-visible, summary:focus-visible { outline: 3px solid #81b9a7; outline-offset: 3px; }
+/* 统一标题和段落默认外边距，后续组件按需添加间距。 */ h1, h2, h3, p { margin: 0; }
+/* 让代码文本使用本机等宽字体，便于阅读路径和结构化输出。 */ code, pre { font-family: Consolas, "Cascadia Code", monospace; }
+/* 顶层网格固定左侧导航宽度，让主区域使用剩余空间。 */ .app-shell { display: grid; grid-template-columns: 248px minmax(0, 1fr); width: 100%; height: 100dvh; min-height: 520px; }
+/* 左侧栏采用浅灰绿底色，以边界而不是强烈阴影区分工作区域。 */ .sidebar { display: flex; flex-direction: column; min-height: 0; padding: 28px 18px 18px; background: #f0f3ed; border-right: 1px solid #dfe5dc; }
+/* 品牌行让方形标识与文字垂直对齐。 */ .brand { display: flex; align-items: center; gap: 11px; margin: 0 4px 32px; }
+/* 本地字母标识提供可复用的视觉锚点。 */ .brand-mark { display: grid; place-items: center; width: 38px; height: 38px; flex: 0 0 auto; border-radius: 11px; background: #234d3d; color: #f7faf5; font-family: Georgia, serif; font-size: 27px; font-style: italic; }
+/* 品牌名称使用略紧凑的字距，保持小空间中的辨识度。 */ .brand strong { display: block; font-size: 19px; font-weight: 650; letter-spacing: -.7px; }
+/* 品牌说明降低视觉权重。 */ .brand div > span { display: block; margin-top: 3px; font-size: 10px; color: #748078; letter-spacing: .3px; }
+/* 统一英文眉题和小节标签的文字样式。 */ .eyebrow { color: #718078; font-size: 10px; font-weight: 650; letter-spacing: 1.45px; line-height: 1.5; }
+/* 目录选择卡片保持独立边框和柔和背景。 */ .workspace-box { padding: 16px 14px 13px; border: 1px solid #dce4d8; border-radius: 12px; background: #f8faf5; }
+/* 目录名称单行截断，完整路径在下方另行展示。 */ .workspace-name { display: block; overflow: hidden; margin-top: 12px; font-size: 14px; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+/* 长目录路径允许任意位置换行，避免撑宽导航栏。 */ .workspace-path { max-height: 56px; margin-top: 7px; overflow-y: auto; color: #78857b; font-size: 10px; line-height: 1.7; overflow-wrap: anywhere; }
+/* 基础按钮统一高度、圆角和间距。 */ .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 34px; padding: 8px 13px; border: 1px solid transparent; border-radius: 7px; font-size: 11px; font-weight: 600; transition: background .15s, border-color .15s; }
+/* 主要按钮使用青绿色，突出创建任务动作。 */ .primary { background: #296249; color: #fff; }
+/* 鼠标悬停时稍微加深主要按钮，禁用状态保持不变。 */ .primary:hover:not(:disabled) { background: #214e3b; }
+/* 次要按钮使用轻边框，适合目录选择等辅助操作。 */ .secondary { background: #fff; border-color: #d9e2d6; color: #415b4c; }
+/* 鼠标悬停时给次要按钮轻微背景反馈。 */ .secondary:hover:not(:disabled) { background: #edf4eb; border-color: #b6cbb5; }
+/* 目录按钮横向填满所在卡片。 */ .workspace-button { width: 100%; margin-top: 13px; }
+/* 任务列表小标题和任务数量放在同一行两端。 */ .section-heading { display: flex; align-items: center; justify-content: space-between; margin: 27px 7px 12px; }
+/* 使用紧凑字号区分任务列表标题与页面标题。 */ .section-heading h2 { font-size: 11px; font-weight: 650; }
+/* 任务数量放在浅色胶囊中，便于快速扫描。 */ .count-pill { min-width: 23px; padding: 2px 6px; border-radius: 5px; color: #6b7b70; background: #e5ebe1; text-align: center; font-size: 10px; }
+/* 任务列表使用剩余高度，并自行滚动。 */ .task-list { flex: 1; min-height: 0; overflow-y: auto; padding: 2px; }
+/* 每个历史任务都是完整点击区域，默认不显示额外边框。 */ .task-card { display: block; width: 100%; margin-bottom: 7px; padding: 13px 12px 12px; border: 1px solid transparent; border-radius: 9px; background: transparent; color: inherit; text-align: left; }
+/* 历史任务悬停时提供低强度背景反馈。 */ .task-card:hover { background: #e8eee3; }
+/* 当前任务用白色背景和青绿色侧边线标记。 */ .task-card.selected { border-color: #d9e3d5; background: #fff; box-shadow: inset 3px 0 #41826a, 0 2px 7px #273a2510; }
+/* 状态和时间共享一行，并分布在两端。 */ .task-meta { display: flex; align-items: center; justify-content: space-between; gap: 5px; }
+/* 列表时间使用低对比度的小字号。 */ .task-meta time { color: #8b968c; font-size: 9px; }
+/* 任务标题最多显示两行，其余内容可通过 title 查看。 */ .task-title { display: -webkit-box; overflow: hidden; margin-top: 10px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-size: 12px; font-weight: 600; line-height: 1.6; overflow-wrap: anywhere; }
+/* 任务目录名称保持为次要信息。 */ .task-directory { display: block; overflow: hidden; margin-top: 6px; color: #879084; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+/* 状态标签用文字和圆点同时表达状态，不只依赖颜色。 */ .status-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 6px; border-radius: 4px; font-size: 9px; font-weight: 600; white-space: nowrap; }
+/* 统一状态圆点尺寸。 */ .status-dot { display: inline-block; width: 5px; height: 5px; flex: 0 0 auto; border-radius: 50%; background: currentColor; }
+/* 排队状态采用温暖黄色。 */ .status-queued { color: #957126; background: #f8f0da; }
+/* 运行状态采用青绿色。 */ .status-running { color: #287459; background: #e8f5ec; }
+/* 已完成状态采用沉稳的绿色。 */ .status-completed { color: #43705d; background: #edf4ec; }
+/* 失败状态采用红色，同时保留明确文字。 */ .status-failed { color: #b25343; background: #fff0eb; }
+/* 取消状态采用灰色，避免与成功混淆。 */ .status-cancelled { color: #78817b; background: #edf0eb; }
+/* 没有任务时保留简洁的文字引导。 */ .sidebar-empty { margin: 6px 9px; color: #8c968b; font-size: 11px; line-height: 1.8; }
+/* 装饰短线将空状态与标题轻微分隔。 */ .empty-line { display: block; width: 28px; height: 2px; margin-bottom: 13px; background: #d6dfd1; }
+/* 导航底部显示运行配额和状态版本。 */ .sidebar-footer { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 17px 6px 0; margin-top: 12px; border-top: 1px solid #dde4d8; font-size: 10px; color: #6e8172; }
+/* 连接点仅作装饰，真实运行数由旁边文字说明。 */ .connection-dot { width: 5px; height: 5px; border-radius: 50%; background: #689078; }
+/* 状态版本单独占一行，便于调试快照同步。 */ .sidebar-footer small { width: 100%; padding-left: 11px; color: #9aa294; font-size: 9px; }
+/* 主区域纵向排列头部、可伸缩内容和底部表单。 */ .main-panel { display: flex; flex-direction: column; min-width: 0; min-height: 0; background: #fafbf8; }
+/* 页头使用留白和底线划分层次。 */ .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex: 0 0 auto; height: 99px; padding: 22px 31px; border-bottom: 1px solid #e6eae1; }
+/* 页面主标题保持紧凑，给任务内容留出更多空间。 */ .topbar h1 { margin-top: 5px; font-size: 21px; font-weight: 650; letter-spacing: -.6px; }
+/* 执行模式始终显示在页头右侧，并允许较长模型名称换行。 */ .mode-badge { display: flex; align-items: center; gap: 7px; max-width: 45%; padding: 8px 11px; border: 1px solid #dfe8d9; border-radius: 6px; color: #4c785d; background: #f1f6ec; font-size: 10px; line-height: 1.5; overflow-wrap: anywhere; }
+/* 真实模型模式使用略偏蓝的底色以便辨认。 */ .mode-openai { color: #32636b; border-color: #d6e6e5; background: #eef7f5; }
+/* IPC 或初始化之后的操作错误以固定告警条显示。 */ .action-error { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 14px 26px 0; padding: 10px 13px; border: 1px solid #ebcfc5; border-radius: 7px; color: #974d3d; background: #fff4ee; font-size: 12px; line-height: 1.7; overflow-wrap: anywhere; }
+/* 错误关闭按钮保留足够点击区域。 */ .action-error button { flex: 0 0 auto; width: 27px; height: 27px; border: 0; border-radius: 4px; background: transparent; color: #974d3d; font-size: 21px; }
+/* 内容区将任务详情与教学提示分为两列。 */ .content-grid { display: grid; grid-template-columns: minmax(0, 1fr) 210px; flex: 1; min-height: 0; }
+/* 对话区只滚动任务内容，保持外层导航和输入区稳定。 */ .conversation { min-width: 0; min-height: 0; overflow-y: auto; padding: 27px 28px 33px; }
+/* 学习侧栏采用更浅的底色和分隔线。 */ .learning-panel { min-height: 0; overflow-y: auto; padding: 30px 20px; border-left: 1px solid #e9ece3; background: #f7f9f3; }
+/* 学习提示标题以适合窄栏的字号和行距显示。 */ .learning-panel h2 { margin-top: 10px; font-size: 12px; font-weight: 650; line-height: 1.7; }
+/* 进程链使用原生有序列表，并用细线连接每一步。 */ .boundary-list { margin: 24px 0 0 11px; padding-left: 15px; border-left: 1px solid #dce5d5; list-style: none; counter-reset: step; }
+/* 每个学习步骤为圆形编号提供定位参照。 */ .boundary-list li { position: relative; margin-bottom: 23px; counter-increment: step; }
+/* 编号位于连接线上，帮助读者顺序理解调用边界。 */ .boundary-list li::before { position: absolute; left: -26px; top: 0; display: grid; place-items: center; width: 21px; height: 21px; border: 1px solid #d9e4d3; border-radius: 50%; background: #f7f9f3; color: #719071; content: counter(step); font-size: 9px; }
+/* 每一步的模块名突出显示。 */ .boundary-list strong { display: block; font-size: 11px; font-weight: 600; line-height: 21px; }
+/* 模块职责说明使用轻量文字。 */ .boundary-list span { display: block; margin-top: 5px; color: #8b9588; font-size: 10px; line-height: 1.8; }
+/* 文件与方法名以等宽小字展示，并允许长名称换行。 */ .boundary-list code { display: block; margin-top: 6px; color: #70907a; font-size: 9px; line-height: 1.7; overflow-wrap: anywhere; }
+/* 学习重点卡片用轻微颜色强调源码知识点。 */ .learning-note { padding: 13px 12px; border: 1px solid #e1e8d9; border-radius: 8px; background: #eff4e9; }
+/* 学习卡片标题与说明分层。 */ .learning-note strong { font-size: 10px; font-weight: 650; }
+/* 重点说明保持适合阅读的行距。 */ .learning-note p { margin-top: 8px; color: #7b8878; font-size: 10px; line-height: 1.9; }
+/* 最后一句学习建议降低视觉权重。 */ .learning-footnote { margin-top: 17px; color: #9aa28f; font-size: 9px; line-height: 1.8; }
+/* 当前任务头部同时容纳问题、路径和状态操作。 */ .detail-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; margin-bottom: 21px; }
+/* 标题列允许缩小，避免长问题撑开网格。 */ .detail-title { min-width: 0; }
+/* 问题是当前详情的核心信息。 */ .detail-title h2 { margin-top: 9px; font-size: 18px; font-weight: 600; line-height: 1.6; overflow-wrap: anywhere; }
+/* 当前任务的固定目录以次要文字展示。 */ .detail-path { margin-top: 8px; color: #8f988e; font-size: 10px; line-height: 1.6; overflow-wrap: anywhere; }
+/* 状态与取消按钮纵向排列，节省窄列横向空间。 */ .detail-actions { display: flex; align-items: flex-end; flex: 0 0 auto; flex-direction: column; gap: 12px; padding-top: 2px; }
+/* 取消操作使用明确但不过度醒目的描边样式。 */ .cancel { min-height: 29px; padding: 5px 8px; border-color: #e1d6cd; background: #fffaf5; color: #977962; font-size: 10px; }
+/* 取消按钮悬停时强调即将中断任务。 */ .cancel:hover:not(:disabled) { background: #f6e9dd; }
+/* 排队、运行和取消说明使用同一种基础布局。 */ .task-notice { display: flex; align-items: center; gap: 8px; margin: 0 0 22px; padding: 11px 13px; border: 1px solid #e6e8db; border-radius: 7px; background: #f3f5ec; color: #78806a; font-size: 11px; line-height: 1.8; }
+/* 运行中说明使用绿色提示当前仍有工作进行。 */ .running-notice { color: #59836b; border-color: #dce9d9; background: #edf6ed; }
+/* 错误说明具有独立颜色，同时直接显示文字原因。 */ .failure-notice { color: #a35d4a; border-color: #efd7cb; background: #fff3eb; }
+/* 执行过程小标题与事件数量在同一行。 */ .timeline-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 13px; }
+/* 时间线标题比任务问题更小。 */ .timeline-heading h3 { font-size: 11px; font-weight: 650; }
+/* 事件数量作为辅助信息。 */ .timeline-heading > span { color: #9ba392; font-size: 9px; }
+/* 事件卡片采用编号与正文双列，支持很长的工具输出。 */ .event-card { display: grid; grid-template-columns: 27px minmax(0, 1fr); gap: 10px; margin-bottom: 9px; padding: 13px 12px; border: 1px solid #e3e9df; border-radius: 8px; background: #fff; }
+/* 错误事件的卡片边框加强辨认。 */ .event-error { border-color: #ecd2c8; background: #fffaf7; }
+/* 每步序号使用等宽字体，便于对齐。 */ .event-index { display: grid; place-items: center; align-self: start; width: 25px; height: 25px; border-radius: 6px; background: #eff3e9; color: #819174; font-family: Consolas, monospace; font-size: 10px; }
+/* 工具调用序号采用更明显的青绿色。 */ .event-tool .event-index { color: #4c876c; background: #eaf4e9; }
+/* 错误事件的序号与正文色彩一致。 */ .event-error .event-index { color: #b57962; background: #fcf0e5; }
+/* 事件正文允许收缩，防止 pre 内容撑宽布局。 */ .event-body { min-width: 0; }
+/* 事件类型与发生时间在同一行两端显示。 */ .event-meta { display: flex; justify-content: space-between; gap: 8px; margin-top: 1px; color: #8e9b86; font-size: 9px; line-height: 1.7; }
+/* 后台事件说明保留自然换行和长词折行。 */ .event-message { margin-top: 5px; color: #4e614c; font-size: 11px; line-height: 1.9; white-space: pre-wrap; overflow-wrap: anywhere; }
+/* 工具详情与主要说明之间保留少量间距。 */ .event-details { margin-top: 8px; }
+/* 折叠按钮使用原生 summary 的键盘和鼠标交互。 */ .event-details summary { width: fit-content; color: #709367; font-size: 10px; line-height: 1.8; cursor: pointer; }
+/* 详情以只读纯文本展示，限制最大高度并允许横纵向查看。 */ .event-details pre { max-height: 250px; overflow: auto; margin: 8px 0 0; padding: 10px; border: 1px solid #e6ecdf; border-radius: 5px; background: #f7f9f3; color: #6b7b60; font-size: 10px; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; }
+/* 没有事件时展示真实等待说明。 */ .no-events { padding: 16px 0; color: #98a08f; font-size: 11px; line-height: 1.7; }
+/* 最终回答采用与事件不同的浅绿色卡片，帮助用户找到结果。 */ .answer-card { margin-top: 22px; padding: 19px 18px; border: 1px solid #d8e6d0; border-radius: 10px; background: #f1f7e9; }
+/* 回答标题与方向符号形成一个清楚的起始标记。 */ .answer-heading { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; color: #507746; }
+/* 方向符号只作为装饰，不承载任务状态含义。 */ .answer-heading > span { font-size: 20px; line-height: 1; }
+/* 最终答案标题比正文略突出。 */ .answer-heading h3 { font-size: 12px; font-weight: 650; }
+/* 回答文本保留原始换行，不把模型返回内容解释为 HTML。 */ .answer-card pre { margin: 0; color: #52694c; font-family: inherit; font-size: 12px; line-height: 2; white-space: pre-wrap; overflow-wrap: anywhere; }
+/* 首次使用页面在可用高度内居中，同时保留小窗口滚动能力。 */ .welcome { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100%; padding: 18px 0 25px; text-align: center; }
+/* 空状态本地插图占据固定空间，防止页面资源加载造成跳动。 */ .welcome-art { position: relative; width: 132px; height: 111px; margin-bottom: 23px; }
+/* 两张装饰卡片的共用形状。 */ .art-card { position: absolute; display: block; width: 91px; height: 93px; border: 1px solid #dbe5d0; border-radius: 12px; }
+/* 后层卡片轻微旋转，形成简洁的文件堆叠效果。 */ .art-back { top: 0; left: 13px; transform: rotate(-12deg); background: #edf3e4; }
+/* 前层卡片使用白底和轻量阴影。 */ .art-front { top: 12px; left: 30px; padding: 14px; transform: rotate(6deg); background: #fffefa; box-shadow: 0 8px 15px #4c613010; text-align: left; }
+/* 插图中的符号代指本地工作区。 */ .art-front > span { color: #6e9764; font-size: 23px; line-height: 1; }
+/* 两条横线表示文件内容。 */ .art-front i { display: block; width: 44px; height: 3px; margin-top: 7px; border-radius: 3px; background: #e6ecdd; }
+/* 第二条横线缩短，增加内容层次。 */ .art-front i + i { width: 32px; margin-top: 5px; }
+/* 就绪标记提示用户可以开始任务。 */ .art-front b { position: absolute; right: -13px; bottom: 7px; padding: 4px 8px; border: 1px solid #cedec5; border-radius: 5px; background: #eaf5e0; color: #6c9260; font-size: 8px; font-weight: 500; letter-spacing: .4px; }
+/* 空状态标题强调具体的开始动作。 */ .welcome h2 { margin-top: 12px; font-size: 24px; font-weight: 600; letter-spacing: -.6px; line-height: 1.5; }
+/* 引导说明限制行宽，让中文段落容易阅读。 */ .welcome-description { max-width: 350px; margin-top: 13px; color: #8b9683; font-size: 12px; line-height: 2; }
+/* 两个示例问题并排排列，充分利用中间内容区域。 */ .example-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; width: 100%; max-width: 440px; margin-top: 29px; }
+/* 示例按钮内部使用纵向文本和右上角方向标记。 */ .example-card { position: relative; min-width: 0; padding: 16px 13px; border: 1px solid #e0e8d8; border-radius: 9px; background: #fffefa; color: #48643f; text-align: left; transition: border-color .15s, background .15s; }
+/* 悬停示例卡片时清楚表明它可以填入输入框。 */ .example-card:hover { border-color: #b9d1a9; background: #f5faee; }
+/* 示例编号弱化展示，仅用来区分起步任务。 */ .example-number { color: #a5b49a; font-family: Consolas, monospace; font-size: 9px; }
+/* 示例任务标题独立占一行。 */ .example-card strong { display: block; margin-top: 11px; font-size: 12px; font-weight: 600; }
+/* 示例用途说明使用更小字号。 */ .example-card > span:not(.example-number) { display: block; margin-top: 8px; color: #95a18a; font-size: 10px; line-height: 1.7; }
+/* 方向标记位于右上角且不参与交互。 */ .example-card b { position: absolute; right: 14px; top: 14px; color: #98b38a; font-size: 15px; font-weight: 400; }
+/* 最后一步提示放在示例下方。 */ .welcome-tip { margin-top: 20px; color: #9eaa92; font-size: 10px; line-height: 1.8; }
+/* 输入区固定在主布局底部，使用轻微背景差异标明操作区域。 */ .composer { flex: 0 0 auto; padding: 15px 28px 17px; border-top: 1px solid #e4eadd; background: #fdfefa; }
+/* 输入标题与快捷问题保持同一行。 */ .composer-topline { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+/* 输入标签为表单提供可访问名称。 */ .composer-topline label { color: #697d5e; font-size: 11px; font-weight: 600; }
+/* 快捷问题之间保持紧凑间距。 */ .quick-prompts { display: flex; gap: 7px; }
+/* 快捷问题采用小型胶囊按钮。 */ .quick-prompts button { padding: 4px 7px; border: 1px solid #e5ebdc; border-radius: 5px; background: #f7faf1; color: #8b9e7d; font-size: 9px; }
+/* 快捷按钮悬停时提高文字辨认度。 */ .quick-prompts button:hover:not(:disabled) { color: #49703a; background: #edf5e3; }
+/* 文本输入和提交按钮放入同一个边框容器。 */ .composer-input { display: flex; align-items: flex-end; gap: 13px; min-height: 79px; padding: 12px 13px; border: 1px solid #d9e5ce; border-radius: 10px; background: #fff; box-shadow: 0 2px 4px #243b1603; }
+/* 输入区内部获得焦点时强调外边框。 */ .composer-input:focus-within { border-color: #8daf7c; box-shadow: 0 0 0 3px #bfd5ac22; }
+/* 文本框自己不显示额外边框，使用外层的整体焦点样式。 */ .composer textarea { display: block; flex: 1; min-width: 0; min-height: 48px; max-height: 140px; padding: 0; resize: vertical; border: 0; outline: none; background: transparent; color: #405b35; font-size: 12px; line-height: 1.9; }
+/* 输入占位提示降低颜色强度。 */ .composer textarea::placeholder { color: #a4ae98; }
+/* 提交按钮固定为内容宽度，避免长输入挤压按钮。 */ .submit-button { flex: 0 0 auto; min-height: 33px; padding: 8px 11px; font-size: 10px; }
+/* 提交方向符号与文字留出一点距离。 */ .submit-button > span { margin-left: 6px; font-size: 15px; line-height: 1; }
+/* 输入底部提示将模式说明和快捷键排列在两端。 */ .composer-footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 9px; color: #a1ac96; font-size: 9px; line-height: 1.6; }
+/* 缺少桥接或正在初始化时用居中独立页面解释实际状态。 */ .startup-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 19px; height: 100%; padding: 35px; text-align: center; }
+/* 启动页主标题保留与工作台相同的文字风格。 */ .startup-screen h1 { font-size: 24px; font-weight: 600; line-height: 1.7; }
+/* 启动页解释文字限制行宽，保证错误信息可读。 */ .startup-screen > p:not(.eyebrow) { max-width: 600px; color: #819075; font-size: 13px; line-height: 1.9; overflow-wrap: anywhere; }
+/* 窄窗口优先保留完整的任务操作空间，并缩小导航栏。 */ @media (max-width: 1050px) {
+  /* 900 像素宽度下左侧栏使用较紧凑的固定宽度。 */ .app-shell { grid-template-columns: 222px minmax(0, 1fr); }
+  /* 隐藏纯说明侧栏，核心进程说明仍可在架构文档中阅读。 */ .learning-panel { display: none; }
+  /* 内容网格缩为一列。 */ .content-grid { grid-template-columns: minmax(0, 1fr); }
+  /* 中间区域在窄窗口中减少左右留白。 */ .conversation { padding: 24px; }
+  /* 页头留白同步减少，维持各区域垂直对齐。 */ .topbar { padding-left: 24px; padding-right: 24px; }
+  /* 输入区沿用相同的左右间距。 */ .composer { padding-left: 24px; padding-right: 24px; }
+/* 结束中等宽度布局调整。 */ }
+/* 很小窗口继续保持可使用，避免表单按钮互相覆盖。 */ @media (max-width: 720px) {
+  /* 进一步缩小左侧栏，把更多宽度留给任务内容。 */ .app-shell { grid-template-columns: 185px minmax(0, 1fr); }
+  /* 小窗口导航减少内边距。 */ .sidebar { padding: 20px 10px 14px; }
+  /* 品牌说明在极窄侧栏中隐藏，保留名称。 */ .brand div > span { display: none; }
+  /* 工作台顶栏使用更紧凑的间距。 */ .topbar { padding: 17px; height: 89px; }
+  /* 小屏隐藏装饰性英文眉题，中文工作台标题仍保留。 */ .topbar .eyebrow { display: none; }
+  /* 历史详情减少外侧留白。 */ .conversation { padding: 19px 15px; }
+  /* 空状态示例改成单列，保证文字完整。 */ .example-grid { grid-template-columns: minmax(0, 1fr); }
+  /* 小窗口输入区缩小左右边距。 */ .composer { padding: 12px 15px; }
+  /* 输入框与提交按钮上下排列，避免文字区域过窄。 */ .composer-input { flex-direction: column; align-items: stretch; }
+  /* 提交按钮放到输入区域右下方。 */ .submit-button { align-self: flex-end; }
+  /* 快捷问题在极窄窗口隐藏，空状态仍提供同样入口。 */ .quick-prompts { display: none; }
+  /* 底部提示在空间不足时分行显示。 */ .composer-footer { flex-direction: column; gap: 2px; }
+/* 结束最小窗口布局调整。 */ }

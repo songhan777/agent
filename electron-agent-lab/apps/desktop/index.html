@@ -1,0 +1,14 @@
+<!doctype html> <!-- 使用 HTML5 标准模式，避免浏览器进入兼容布局。 -->
+<html lang="zh-CN"> <!-- 声明主要语言为简体中文，帮助读屏软件正确朗读。 -->
+  <head> <!-- 保存页面元数据和资源安全策略。 -->
+    <meta charset="UTF-8" /> <!-- 使用 UTF-8 编码，保证中文提示和代码注释正常显示。 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- 按实际窗口宽度排版，并使用正常缩放比例。 -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' ws://127.0.0.1:5173; img-src 'self' data:; object-src 'none'; base-uri 'none'" /> <!-- 限制脚本和资源来源；本地 WebSocket 只供 Vite 开发热更新，内联样式供开发样式注入使用。 -->
+    <meta name="color-scheme" content="light" /> <!-- 让原生表单控件使用与本模板一致的浅色外观。 -->
+    <title>Agent Lab · 桌面智能体学习模板</title> <!-- 设置桌面窗口和浏览器标签中显示的标题。 -->
+  </head> <!-- 结束头部配置。 -->
+  <body> <!-- 页面可见内容由下面的 React 根节点承载。 -->
+    <div id="root"></div> <!-- 为 React 提供唯一的应用挂载容器。 -->
+    <script type="module" src="/src/renderer/main.tsx"></script> <!-- 通过 Vite 加载 TypeScript 页面入口，生产构建时会替换为本地打包资源。 -->
+  </body> <!-- 结束页面正文。 -->
+</html> <!-- 结束 HTML 文档。 -->

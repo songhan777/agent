@@ -1,0 +1,30 @@
+# 指定桌面应用标识，正式发布时替换为自己拥有的命名空间。
+appId: dev.learning.electron-agent-lab
+# 指定安装包与应用窗口使用的产品名称。
+productName: Electron Agent Lab
+# 使用 ASAR 归档源码；这不是密钥加密机制。
+asar: true
+# 声明构建产物的输出目录。
+directories:
+  # 将打包结果放在 release，避免与编译目录混在一起。
+  output: release
+# 只把运行需要的编译结果和演示资料放进应用。
+files:
+  # 包含主进程、preload 与页面构建产物。
+  - dist/**/*
+  # 包含 Electron 定位主入口所需的包元数据。
+  - package.json
+# 样例工作区保留为真实文件系统目录，避免把 ASAR 虚拟路径交给工具扫描。
+extraResources:
+  # 指定源码中的样例目录。
+  - from: examples/workspace
+    # 将它复制到打包应用的 resources/workspace。
+    to: workspace
+# 配置 Windows 平台构建。
+win:
+  # 教学模板生成 ZIP 分发包；解压整个目录后双击程序运行。
+  target: zip
+  # 教学构建不要求签名证书，正式发行应按平台要求补签名。
+  signAndEditExecutable: false
+# 固定产物名称，方便在文档中指出下载位置。
+artifactName: Electron-Agent-Lab-${version}-${arch}.${ext}

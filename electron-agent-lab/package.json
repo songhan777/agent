@@ -1,0 +1,43 @@
+{
+  "name": "electron-agent-lab",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Electron + React + TypeScript 中文逐行注释教学模板",
+  "author": "Learning Lab",
+  "license": "MIT",
+  "main": "dist/main/index.cjs",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "cli": "tsx apps/cli/src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "build": "node scripts/build.mjs",
+    "start": "electron .",
+    "package:dir": "node scripts/build.mjs && electron-builder --dir",
+    "package:win": "node scripts/build.mjs && electron-builder --win zip",
+    "check:comments": "node scripts/check-comments.mjs",
+    "check": "tsc --noEmit && tsx --test tests/*.test.ts && node scripts/check-comments.mjs",
+    "test:desktop": "node scripts/smoke-desktop.mjs",
+    "docs:config": "node scripts/explain-config.mjs"
+  },
+  "dependencies": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.1",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.7",
+    "electron": "44.3.0",
+    "electron-builder": "26.15.3",
+    "esbuild": "0.28.2",
+    "playwright": "1.63.0",
+    "tsx": "4.23.13",
+    "typescript": "7.0.2",
+    "vite": "8.2.2"
+  }
+}
